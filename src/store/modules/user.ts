@@ -1,5 +1,4 @@
 import { Module } from "vuex";
-import { defaultRoutes } from '@/router'
   /**
    * Filter asynchronous routing tables by recursion
    * @param routes asyncRoutes
@@ -38,6 +37,14 @@ const store: Module<StoreRouter, unknown> = {
             accessedRoutes = filterAsyncRoutes(payload)
             context.commit("setRouter", accessedRoutes);
             return accessedRoutes
+            
+        },
+        login(context, payload: any) {
+            console.log(payload)
+            // let accessedRoutes
+            // accessedRoutes = filterAsyncRoutes(payload)
+            // context.commit("setRouter", accessedRoutes);
+            // return accessedRoutes
             
         }
     },

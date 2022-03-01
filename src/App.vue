@@ -12,7 +12,7 @@ const size = ref("small")
 </script>
 
 <template>
-<el-config-provider :button="button" :msg="msg" :size="size">
+  <el-config-provider :button="button" :message="msg" :size="size">
     <router-view></router-view>
   </el-config-provider>
 </template>

@@ -1,43 +1,34 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import store from '@/store';
+import { createRouter, createWebHistory } from "vue-router"
+import { store } from '@/store';
 import LayOut from '../layout/index.vue'
 
-function getRoutes() {
-	const { context, mainRoutes } = loadRouters();
-	console.log(mainRoutes)
-	console.log(context)
-	store.dispatch("user/setRouter", mainRoutes)
-	/**
-	 * 如果要对 routes 做一些处理，请在这里修改
-	 */
-	let routes = [
-		{
-			path: '/',
-			name: 'LayOut',
-			meta: {
-			  title: "首页",
-			},
-			component: LayOut,
-			redirect: () => {
-				return { path: '/Dashboard' }
-			},
-			children: mainRoutes
-		},
-		{
-			path: "/:pathMatch(.*)*",
-			name: '404',
-			component: () => import("@/views/404.vue"),
-			hidden: true
-		},
-	]
-	return routes;
+interface AnyObject {
+	[key: string]: any
 }
-export const defaultRoutes = [
+
+export function loadModules() {
+    const context = import.meta.globEager("./*.ts") as AnyObject;
+
+    const modules:any = [];
+
+    Object.keys(context).forEach((key: string) => {
+        if (key === "./index.ts") return;
+        modules.push(context[key].default)
+    });
+    
+    return { modules }
+}
+
+let { modules } = loadModules()
+
+export const routeArr = modules.flat()
+export const Routes = [
 	{
 		path: '/',
 		name: 'LayOut',
 		meta: {
-		  title: "首页",
+		  title: "LayOut",
+		  login: true
 		},
 		component: LayOut,
 		redirect: () => {
@@ -49,24 +40,14 @@ export const defaultRoutes = [
 				name: '首页',
 				component: () => import('../views/Dashboard/index.vue'),
 			},
-			{
-				path: "/About",
-				name: "About",
-				component: () => import('../views/Aboutbox/index.vue'),
-				children: [
-					{
-						path: 'About',
-						name: 'About',
-						component: () => import('../views/About/index.vue'),
-					},
-					{
-						path: 'About1',
-						name: 'About1',
-						component: () => import('../views/About/index.vue'),
-					}
-				]
-			},
+			...routeArr
 		]
+	},
+	{
+		path: "/login",
+		name: '登录',
+		component: () => import("@/views/Login.vue"),
+		hidden: true
 	},
 	{
 		path: "/:pathMatch(.*)*",
@@ -75,36 +56,22 @@ export const defaultRoutes = [
 		hidden: true
 	},
 ]
-	
+store.dispatch("user/setRouter", modules)
 const router = createRouter({
     history: createWebHistory(),
-    routes: getRoutes()
+    routes: Routes
 })
 
 router.beforeEach((to, from, next) => {
-	// getRoutes()
-	// store.dispatch("user/setRouter", defaultRoutes)
+	if (to.matched.some(record => record.meta.login)) {
+		if (localStorage.getItem('token') == 'undefined' || !localStorage.getItem('token')) {
+			// next()
+			// next({
+			// 	path: '/login',
+			// })
+		}
+	  }
 	next()
 })
 
 export default router;
-
-/** 以下代码不要修改 */
-function loadRouters() {
-	const context = import.meta.globEager("../views/**/*.vue");
-    const mainRoutes: RouteRecordRaw[] = [];
-    Object.keys(context).forEach((key: any) => {
-        if (key === "./index.ts"||key.includes('404')||key.includes('component')) return;
-		let name = key.replace(/(\.\.\/views\/|\.vue)/g, '');
-		let path = key.replace(/(\.\.\/views\/|\.vue|\/index.vue)/g, '');
-		path = "/" + path;
-		if (name === "Dashboard") path = "/";
-		mainRoutes.unshift({
-			path: path,
-			name: name,
-			component: () => import(`../views/${name}.vue`)
-		})
-    });
-
-    return { context, mainRoutes }
-}

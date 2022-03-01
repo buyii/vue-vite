@@ -3,15 +3,19 @@
         <Test :ref="(el:any)=>setItemRef(el,item)" :item="item" ></Test>
     </div>
     <div>
+        <HelloWorld msg="message" />
+    </div>
+    <div>
         <el-button type="primary" @click="cli" >点击</el-button>
     </div>
 </template>
 
 
 <script setup lang="ts">
-import Test from "@/components/test.vue"
+// import Test from "@/components/test.vue"
 import * as request from '@/utils/request'
     let cli = async ()=>{
+        ElMessage.success("xiaoxi")
         itemRefs.G.log(1)
         let url ='http://test.livejx.cn/fns/common/selectCityPermissions'
         let result = await request.Get(url,{token:localStorage.getItem('token'),username:localStorage.getItem('username')})

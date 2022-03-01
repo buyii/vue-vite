@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100vh;">
-    <el-aside width="200px" style="height: 100%;">
+    <el-aside width="180px" style="height: 100%;">
       <Sidebar />
     </el-aside>
     <el-container>

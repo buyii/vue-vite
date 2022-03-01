@@ -8,20 +8,17 @@
         :default-active="activeMenu"
         text-color="#bfcbd9"
     >
-        <SidebarItem
-            v-for="item in routers"
-            :key="item.path"
-            :item="item"
-            :basePath="item.path"
-        />
+        <el-menu-item index="/Dashboard" route="/Dashboard">
+            <el-icon><HomeFilled/></el-icon>
+            首页
+        </el-menu-item>
+        <SidebarItem />
     </el-menu>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from '@/store';
+import { HomeFilled } from '@element-plus/icons-vue'
 import SidebarItem from './SidebarItem.vue';
 let activeMenu = ref(useRoute().fullPath)
-const st = useStore();
-const routers = computed(()=> st.getters["user/getRouter"]);
 </script>
