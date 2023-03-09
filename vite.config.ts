@@ -25,12 +25,22 @@ export default defineConfig({
     },
   },
   plugins: [
+    vue(),
+    Components({
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      resolvers: [
+        ElementPlusResolver({
+          importStyle: 'sass',
+        }),
+      ],
+      dts: 'src/components.d.ts',
+    }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()],
-    }),
-    vue()
+      dts: 'src/auto-imports.d.ts',
+    })
   ]
 })
