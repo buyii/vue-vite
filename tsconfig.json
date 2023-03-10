@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "types": ["vite/client"],
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -15,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","auto-imports.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","auto-imports.d.ts","vite.config.ts"],
+  // "references": [{ "path": "./tsconfig.node.json" }]
 }

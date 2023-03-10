@@ -70,8 +70,8 @@ const loginRules = reactive({
   // username: [{ required: true, trigger: 'blur', validator: validateUsername }],
   // password: [{ required: true, trigger: 'blur', validator: validatePassword }]
 })
-let loading = ref<Boolean>(false)
-let passwordType = ref<String>("password")
+let loading = ref<boolean>(false)
+let passwordType = ref<string>("password")
 let router = useRouter()
 let route = useRoute()
 let redirect:any = route.query.redirect
@@ -121,14 +121,15 @@ $cursor: #fff;
   background-color: $bg;
   overflow: hidden;
   .el-input {
-    display: inline-block;
     height: 40px;
-    // width: 100%;
     flex: 1;
-    ::v-deep input {
+    :deep(.el-input__wrapper)  {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    :deep(input)  {
       border: 0px;
       background: transparent;
-      -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
       color: $light_gray;

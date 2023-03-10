@@ -33,6 +33,7 @@ const store: Module<StoreRouter, unknown> = {
     },
     actions: {
         setRouter(context, payload: any) {
+            console.log(payload);
             let accessedRoutes
             accessedRoutes = filterAsyncRoutes(payload)
             context.commit("setRouter", accessedRoutes);
@@ -40,7 +41,7 @@ const store: Module<StoreRouter, unknown> = {
             
         },
         login(context, payload: any) {
-            console.log(payload)
+            console.log(payload,6666)
             // let accessedRoutes
             // accessedRoutes = filterAsyncRoutes(payload)
             // context.commit("setRouter", accessedRoutes);

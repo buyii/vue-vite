@@ -7,8 +7,9 @@ interface AnyObject {
 }
 
 export function loadModules() {
-    const context = import.meta.globEager("./*.ts") as AnyObject;
-
+    const context = import.meta.glob("./*.ts",{ eager: true }) as AnyObject;
+	console.log(context,666)
+	console.log(import.meta,888)
     const modules:any = [];
 
     Object.keys(context).forEach((key: string) => {
