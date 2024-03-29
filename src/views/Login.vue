@@ -58,6 +58,7 @@ import { reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import { User, View, Lock } from '@element-plus/icons-vue'
 import { store } from '@/store';
+import { Login } from '@/api/index'
 const loginFormRef = ref()
 
 let loginForm = reactive({
@@ -87,17 +88,23 @@ let redirect:any = route.query.redirect
       console.log(loginForm);
       formEl.validate((valid:any) => {
         if (valid) {
-          console.log(2222);
+          console.log(valid,2222);
           // this.$router.push({ path: this.redirect || '/' })
           loading.value = true;
-          store.dispatch("user/login", loginForm).then(() => {
-            ElMessage.success("登录成功");
-            router.push({ path: redirect || "/" });
-            loading.value = true;
-          }).catch((err:any) => {
-            console.log(err);
-            loading.value = true;
-          });
+
+          Login(loginForm).then(res=>{
+            console.log(res)
+          }).catch(err=>{
+            console.log(err)
+          })
+          // store.dispatch("user/login", loginForm).then(() => {
+          //   ElMessage.success("登录成功");
+          //   router.push({ path: redirect || "/" });
+          //   loading.value = true;
+          // }).catch((err:any) => {
+          //   console.log(err);
+          //   loading.value = true;
+          // });
         } else {
           console.log("error submit!!");
           return false;

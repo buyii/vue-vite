@@ -10,8 +10,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',	// ← 新增内容 ←
     port: 8888,
-    open: true
-  },	
+    open: true,
+    // proxy: {
+    //   "/users": "http://127.0.0.1:8000",
+    // },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src")
