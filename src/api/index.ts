@@ -2,8 +2,12 @@ import * as request from '@/utils/request'
 const server = import.meta.env.VITE_APP_SERVER
 const server1 = import.meta.env.VITE_APP_SERVER2
 
+// export function Login (data: any) {
+//   return request.Post(`${server}/users/login`, data)
+// }
+
 export function Login (data: any) {
-  return request.Post(`${server}/users/login`, data)
+  return request.Post(`/api/xtop/xtop.agencyTrackingFs.queryTracking/1.0`, data)
 }
 
 export function Protected (query: any) {

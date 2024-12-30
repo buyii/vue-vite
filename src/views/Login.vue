@@ -91,8 +91,32 @@ let redirect:any = route.query.redirect
           console.log(valid,2222);
           // this.$router.push({ path: this.redirect || '/' })
           loading.value = true;
+          let data = {
+            'params': {
+              'request': {
+                'cancelDutyList': [
+                  2,
+                ],
+                'trackingFinishStart': 1725206400000,
+                'trackingFinishEnd': 1725379199000,
+                'merchantConsumerDistanceStart': '0',
+                'merchantConsumerDistanceEnd': '999999',
+                'payAmountStart': '0',
+                'payAmountEnd': '999999',
+                'weightStart': '0',
+                'weightEnd': '999999',
+                'current': 1,
+                'pageSize': 20,
+                'trackingStateKey': 'all',
+                'trackingLabelKey': 'all',
+                'trackingFinishTimePeriodList': [
+                  '0-86400',
+                ],
+              },
+            }
+          }
 
-          Login(loginForm).then(res=>{
+          Login(data).then(res=>{
             console.log(res)
           }).catch(err=>{
             console.log(err)

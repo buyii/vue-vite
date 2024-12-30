@@ -1,6 +1,9 @@
 import axios from 'axios'
 function build (url:String, method:String, data:any, params = null, contentType = 'application/json') {
-  const headers:any = { 'Content-Type': contentType }
+  const headers:any = { 
+    'Content-Type': contentType,
+    Cookie: '22222222'
+  }
 
   // token
   var token = localStorage.getItem('token')

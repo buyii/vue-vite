@@ -11,9 +11,14 @@ export default defineConfig({
     host: '0.0.0.0',	// ← 新增内容 ←
     port: 8888,
     open: true,
-    // proxy: {
-    //   "/users": "http://127.0.0.1:8000",
-    // },
+    proxy: {
+      '/api': {
+        target: 'https://httpizza.ele.me',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      "/users": "https://httpizza.ele.me",
+    },
   },
   resolve: {
     alias: {

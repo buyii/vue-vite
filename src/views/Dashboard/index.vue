@@ -6,7 +6,7 @@
         <HelloWorld msg="message" />
     </div>
     <div>
-        <el-button type="primary" @click="cli" >点击</el-button> 
+        <el-button type="primary" @click="cli" >点击1122211</el-button> 
         <el-button type="primary" @click="cli1" >验证token</el-button> 
     </div>
     <div>
